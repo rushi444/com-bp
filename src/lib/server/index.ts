@@ -1,17 +1,13 @@
-import type { inferAsyncReturnType } from '@trpc/server'
+import superjson from 'superjson'
 
-import * as trpc from '@trpc/server'
-import trpcTransformer from 'trpc-transformer'
-
-import { HealthRouter } from './health'
-
-export const createContext = async () => ({})
+import { createRouter } from './context'
+import { HealthRouter, UserRouter } from './routers'
 
 export const responseMeta = () => ({})
 
-export const router = trpc
-	.router<inferAsyncReturnType<typeof createContext>>()
+export const router = createRouter()
 	.merge('health:', HealthRouter)
-	.transformer(trpcTransformer)
+	.merge('user:', UserRouter)
+	.transformer(superjson)
 
 export type Router = typeof router

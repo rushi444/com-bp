@@ -2,7 +2,7 @@ import type { inferProcedureInput, inferProcedureOutput } from '@trpc/server'
 import type { LoadEvent } from '@sveltejs/kit'
 import type { Router } from '$lib/server'
 
-import trpcTransformer from 'trpc-transformer'
+import superjson from 'superjson'
 import * as trpc from '@trpc/client'
 import { browser } from '$app/environment'
 
@@ -11,7 +11,7 @@ const url = browser ? '/trpc' : 'http://localhost:5173/trpc'
 export const client = (loadFetch?: typeof fetch | LoadEvent['fetch']) =>
 	trpc.createTRPCClient<Router>({
 		url,
-		transformer: trpcTransformer,
+		transformer: superjson,
 		...(loadFetch && { fetch: loadFetch as typeof fetch })
 	})
 

@@ -10,7 +10,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"generate": "prisma generate",
+		"migrate": "prisma migrate dev"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.25.0",
@@ -37,8 +39,8 @@
 		"@trpc/client": "^9.27.2",
 		"@trpc/server": "^9.27.2",
 		"sk-auth": "^0.4.1",
+		"superjson": "^1.9.1",
 		"trpc-sveltekit": "^2.3.0",
-		"trpc-transformer": "^2.1.1",
 		"zod": "^3.18.0"
 	}
 }
