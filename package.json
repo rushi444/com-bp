@@ -38,7 +38,6 @@
 		"@prisma/client": "^4.3.0",
 		"@trpc/client": "^9.27.2",
 		"@trpc/server": "^9.27.2",
-		"sk-auth": "^0.4.1",
 		"superjson": "^1.9.1",
 		"trpc-sveltekit": "^2.3.0",
 		"zod": "^3.18.0"
