@@ -1,29 +1,16 @@
 import type { Handle } from '@sveltejs/kit'
 
 import { createTRPCHandle } from 'trpc-sveltekit'
-import cookie from 'cookie'
 
 import { router, responseMeta } from '$lib/server'
 import { createContext } from '$lib/server/context'
-import { prismaClient } from '$lib/prismaClient'
+import { auth } from '$lib/prismaClient'
+import { sequence } from '@sveltejs/kit/hooks'
 
-export const handle: Handle = async ({ event, resolve }) => {
-	// const cookieHeader = event.request.headers.get('cookie')
-	// const cookies = cookie.parse(cookieHeader ?? '')
-
-	// console.log({req: event.request.headers})
-
-	// const session = await prismaClient.user.findUnique({ where: { userAuthToken: cookies.session } })
-	// console.log({ session })
-	// if (session?.username) {
-	// 	event.locals.user = { username: session.username }
-	// }
-
+const handleTRPC: Handle = async ({ event, resolve }) => {
 	const response = await createTRPCHandle({
 		url: '/trpc',
 		router,
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		createContext,
 		responseMeta,
 		event,
@@ -32,3 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return response
 }
+
+const handleAuth = auth.handleAuth
+
+export const handle: Handle = sequence(handleTRPC, handleAuth)

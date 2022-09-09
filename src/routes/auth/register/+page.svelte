@@ -3,17 +3,17 @@
 
 	const register = async (event: SubmitEvent) => {
 		const data = new FormData(event.target as HTMLFormElement)
-		const username = data.get('username') as string
+		const email = data.get('email') as string
 		const password = data.get('password') as string
 
-		await client().mutation('user:register', { username, password })
+		await client().mutation('user:register', { email, password })
 	}
 </script>
 
 <form on:submit|preventDefault={register} method="post">
 	<div>
-		<label for="username">Username</label>
-		<input id="username" name="username" />
+		<label for="email">Username</label>
+		<input id="email" name="email" />
 	</div>
 
 	<div>
