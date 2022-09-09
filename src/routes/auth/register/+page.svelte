@@ -6,7 +6,13 @@
 		const email = data.get('email') as string
 		const password = data.get('password') as string
 
-		await client().mutation('user:register', { email, password })
+		await fetch('/api/register', {
+			method: 'POST',
+			body: JSON.stringify({
+				email,
+				password
+			})
+		})
 	}
 </script>
 
